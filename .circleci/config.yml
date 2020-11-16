@@ -1,7 +1,7 @@
 version: 1
 
 jobs:
-  test_regression_model:
+  test_app:
     docker:
       - image: circleci/python:3.8.0
     working_directory: ~/project
@@ -22,5 +22,5 @@ workflows:
   version: 1
   test-all:
     jobs:
-      - tests
+      - test_app
 
