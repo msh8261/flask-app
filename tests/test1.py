@@ -1,5 +1,6 @@
 from app import app
 import unittest
+import pytest
 
 app.testing = True
 
@@ -11,11 +12,11 @@ class BasicTestCase(unittest.TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.data, b'<h1>Hello</h1>')
 
-	def test_other(self):
-		tester = app.test_client(self)
-		response = tester.get('a', content_type='html/text')
-		self.assertEqual(response.status_code, 404)
-		self.assertTrue(b'does not exist' in response.data)
+	# def test_other(self):
+	# 	tester = app.test_client(self)
+	# 	response = tester.get('a', content_type='html/text')
+	# 	self.assertEqual(response.status_code, 404)
+	# 	self.assertTrue(b'does not exist' in response.data)
 
 
 if __name__ == '__main__':
