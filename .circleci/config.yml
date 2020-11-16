@@ -1,26 +1,21 @@
-version: 1
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
 
 jobs:
-  test_app:
-    docker:
-      - image: circleci/python:3.8.0
-    working_directory: ~/project
+  build-and-test:
+    executor: python/default
     steps:
-      - checkout:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
       - run:
-          name: Running tests 
-          command: |
-            virtualenv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
-            py.test -vv tests
-
-  
+          command: ./manage.py test
+          name: Test
 
 workflows:
-  version: 1
-  test-all:
+  main:
     jobs:
-      - test_app
-
+      - build-and-test
