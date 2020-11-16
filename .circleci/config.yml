@@ -1,10 +1,12 @@
-version: 1
+version: 2
 
 jobs:
-  test_app:
+  build:
+    docker:
+      - image: circleci/python:3.8.0
     working_directory: ~/project
     steps:
-      - checkout:
+      - checkout
       - run:
           name: Running tests 
           command: |
@@ -12,13 +14,7 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
-            py.test -vv tests
+            python app.py
+	    python tests/test1.py
 
   
-
-workflows:
-  version: 1
-  test-all:
-    jobs:
-      - test_app
-
